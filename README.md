@@ -28,3 +28,6 @@ Pentest Automation Framework
 5. MySQL Brute Force (Hydra)
 6. Privilege Escalation
 7. Exit
+
+
+Also Check out https://github.com/jamieduk/Easy-Hack-Menu-For-Linux-Bash-By-c-J-Net-2024
